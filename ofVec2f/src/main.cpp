@@ -132,10 +132,10 @@ BOOST_AUTO_TEST_CASE(match_invalid)
 BOOST_AUTO_TEST_CASE(match_tolerance)
 {
   ofVec2f v1(40.0f, 20.0f);
-  ofVec2f v2(40.01f, 19.999f);
+  ofVec2f v2(40.1f, 19.9f);
 
-  BOOST_CHECK( v1.match(v2, 0.01f) );
-  BOOST_CHECK( !v1.match(v2, 0.001f) );
+  BOOST_CHECK( v1.match(v2, 0.2f) );
+  BOOST_CHECK( !v1.match(v2, 0.1f) );
 }
 
 BOOST_AUTO_TEST_CASE(isAligned)
