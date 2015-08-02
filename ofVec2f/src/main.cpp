@@ -155,3 +155,170 @@ BOOST_AUTO_TEST_CASE(isAlignedRad)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_SUITE(operators)
+
+BOOST_AUTO_TEST_CASE(operator_addition_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  ofVec2f v_t = v1 + v2;
+
+  BOOST_CHECK_EQUAL( v_t.x, 4.0f );
+  BOOST_CHECK_EQUAL( v_t.y, 13.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_addition_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v_t = v1 + 7;
+
+  BOOST_CHECK_EQUAL( v_t.x, 10.0f );
+  BOOST_CHECK_EQUAL( v_t.y, 12.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_addition_equal_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  v1 += v2;
+
+  BOOST_CHECK_EQUAL( v1.x, 4.0f );
+  BOOST_CHECK_EQUAL( v1.y, 13.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_addition_equal_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  v1 += 7;
+
+  BOOST_CHECK_EQUAL( v1.x, 10.0f );
+  BOOST_CHECK_EQUAL( v1.y, 12.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_substraction_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  ofVec2f v_t = v1 - v2;
+
+  BOOST_CHECK_EQUAL( v_t.x, 2.0f );
+  BOOST_CHECK_EQUAL( v_t.y, -3.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_substraction_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v_t = v1 - 7;
+
+  BOOST_CHECK_EQUAL( v_t.x, -4.0f );
+  BOOST_CHECK_EQUAL( v_t.y, -2.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_substraction_equal_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  v1 -= v2;
+
+  BOOST_CHECK_EQUAL( v1.x, 2.0f );
+  BOOST_CHECK_EQUAL( v1.y, -3.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_substraction_equal_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  v1 -= 7;
+
+  BOOST_CHECK_EQUAL( v1.x, -4.0f );
+  BOOST_CHECK_EQUAL( v1.y, -2.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_negate)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2;
+  v2 = -v1;
+
+  BOOST_CHECK_EQUAL( v2.x, -3.0f );
+  BOOST_CHECK_EQUAL( v2.y, -5.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_asterisc_scaling_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  ofVec2f v_t = v1 * v2;
+
+  BOOST_CHECK_EQUAL( v_t.x, 3.0f );
+  BOOST_CHECK_EQUAL( v_t.y, 40.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_asterisc_scaling_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v_t = v1 * -7;
+
+  BOOST_CHECK_EQUAL( v_t.x, -21.0f );
+  BOOST_CHECK_EQUAL( v_t.y, -35.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_asterisc_scaling_equal_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  v1 *= v2;
+
+  BOOST_CHECK_EQUAL( v1.x, 3.0f );
+  BOOST_CHECK_EQUAL( v1.y, 40.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_asterisc_scaling_equal_scalar)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  v1 *= 7;
+
+  BOOST_CHECK_EQUAL( v1.x, 21.0f );
+  BOOST_CHECK_EQUAL( v1.y, 35.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_slash_scaling_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  ofVec2f v_t = v1 / v2;
+
+  BOOST_CHECK_EQUAL( v_t.x, 3.0f );
+  BOOST_CHECK_EQUAL( v_t.y, 0.625f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_slash_scaling_scalar)
+{
+  ofVec2f v1(7.0f, -14.0f);
+  ofVec2f v_t = v1 / -7;
+
+  BOOST_CHECK_EQUAL( v_t.x, -1.0f );
+  BOOST_CHECK_EQUAL( v_t.y, 2.0f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_slash_scaling_equal_vector)
+{
+  ofVec2f v1(3.0f, 5.0f);
+  ofVec2f v2(1.0f, 8.0f);
+  v1 /= v2;
+
+  BOOST_CHECK_EQUAL( v1.x, 3.0f );
+  BOOST_CHECK_EQUAL( v1.y, 0.625f );
+}
+
+BOOST_AUTO_TEST_CASE(operator_slash_scaling_equal_scalar)
+{
+  ofVec2f v1(7.0f, -14.0f);
+  v1 /= 7;
+
+  BOOST_CHECK_EQUAL( v1.x, 1.0f );
+  BOOST_CHECK_EQUAL( v1.y, -2.0f );
+}
+
+BOOST_AUTO_TEST_SUITE_END()
