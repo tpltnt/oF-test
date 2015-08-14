@@ -322,3 +322,18 @@ BOOST_AUTO_TEST_CASE(operator_slash_scaling_equal_scalar)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_SUITE(simple_manipulations)
+
+BOOST_AUTO_TEST_CASE(getScaled)
+{
+  ofVec2f v1(3, 4);
+  BOOST_CHECK_EQUAL(5.0f, v1.length());  // length should be 5
+
+  // get scaled vector of length 15
+  ofVec2f v2 = v1.getScaled(15);
+  BOOST_CHECK_EQUAL(15.0f, v2.length());
+}
+
+BOOST_AUTO_TEST_SUITE_END()
