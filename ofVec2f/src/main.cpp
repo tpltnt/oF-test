@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(getRotated_0)
   BOOST_CHECK_EQUAL(sqrtf(2.0f)/2, v2.x);
   BOOST_CHECK_EQUAL(sqrtf(2.0f)/2, v2.y);
 
-  // rotate another 45 degrees -> show numerical artefacf
+  // rotate another 45 degrees -> show numerical artefact
   ofVec2f v3 = v2.getRotated(45);
   BOOST_CHECK_EQUAL(0.0f, v3.x);
   BOOST_CHECK_EQUAL(0.99999994f, v3.y);
@@ -412,6 +412,62 @@ BOOST_AUTO_TEST_CASE(getRotated_2)
   // rotate another 45 degrees -> show numerical artefacf
   ofVec2f v3 = v2.getRotated(45);
   ofVec2f v3p = v2.getRotated(45, p);
+  BOOST_CHECK_EQUAL(v3.x, v3p.x);
+  BOOST_CHECK_EQUAL(v3.y, v3p.y);
+}
+
+BOOST_AUTO_TEST_CASE(getRotatedRad_0)
+{
+  // numerical imprecissions since float
+  // is used internally
+  ofVec2f v1(1, 0);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate PI/2 (=90) degrees
+  ofVec2f v2 = v1.getRotatedRad(PI/2);
+  BOOST_CHECK_EQUAL(-4.37113883e-08f, v2.x);
+  BOOST_CHECK_EQUAL(1.0f, v2.y);
+
+  // rotate  PI/4 (=45) degrees
+  ofVec2f v3 = v2.getRotatedRad(PI/4);
+  BOOST_CHECK_EQUAL(-0.707106829f, v3.x);
+  BOOST_CHECK_EQUAL(0.707106709f, v3.y);
+}
+
+BOOST_AUTO_TEST_CASE(getRotatedRad_1)
+{
+  // numerical imprecissions since float
+  // is used internally
+  ofVec2f v1(1, 0);
+  ofVec2f p(0, 1);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate PI/4 (=45) degrees, but non-center pivot
+  ofVec2f v2 = v1.getRotatedRad(PI/4, p);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f), v2.x);
+  BOOST_CHECK_EQUAL(1.0f, v2.y);
+}
+
+BOOST_AUTO_TEST_CASE(getRotatedRad_2)
+{
+  // pivoting around (0,0) should be like normal
+  // getRotatedRad()
+  ofVec2f v1(1, 0);
+  ofVec2f p(0, 0);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate PI/2 (=90) degrees
+  ofVec2f v2 = v1.getRotatedRad(PI/2);
+  ofVec2f v2p = v1.getRotatedRad(PI/2);
+  BOOST_CHECK_EQUAL(v2.x, v2p.x);
+  BOOST_CHECK_EQUAL(v2.y, v2p.y);
+
+  // rotate another PI/4 (=45) degrees
+  ofVec2f v3 = v2.getRotatedRad(PI/4);
+  ofVec2f v3p = v2.getRotatedRad(PI/4, p);
   BOOST_CHECK_EQUAL(v3.x, v3p.x);
   BOOST_CHECK_EQUAL(v3.y, v3p.y);
 }
