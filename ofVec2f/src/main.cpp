@@ -3,6 +3,7 @@
 #include "ofVec2f.h"
 #include "ofVec3f.h"
 #include "ofVec4f.h"
+#include <math.h>
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_SUITE(constructors)
@@ -361,6 +362,58 @@ BOOST_AUTO_TEST_CASE(scale_1)
   BOOST_CHECK_EQUAL(5.0f, v1.length());  // length should be 5
 
   BOOST_CHECK_EQUAL(15.0f, v1.scale(15).length());
+}
+
+BOOST_AUTO_TEST_CASE(getRotated_0)
+{
+  ofVec2f v1(1, 0);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate 45 degrees
+  ofVec2f v2 = v1.getRotated(45);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f)/2, v2.x);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f)/2, v2.y);
+
+  // rotate another 45 degrees -> show numerical artefacf
+  ofVec2f v3 = v2.getRotated(45);
+  BOOST_CHECK_EQUAL(0.0f, v3.x);
+  BOOST_CHECK_EQUAL(0.99999994f, v3.y);
+}
+
+BOOST_AUTO_TEST_CASE(getRotated_1)
+{
+  ofVec2f v1(1, 0);
+  ofVec2f p(0, 1);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate 45 degrees, but non-center pivot
+  ofVec2f v2 = v1.getRotated(45, p);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f), v2.x);
+  BOOST_CHECK_EQUAL(1.0f, v2.y);
+}
+
+BOOST_AUTO_TEST_CASE(getRotated_2)
+{
+  // pivoting around (0,0) should be like normal
+  // getRotated()
+  ofVec2f v1(1, 0);
+  ofVec2f p(0, 0);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotate 45 degrees
+  ofVec2f v2 = v1.getRotated(45);
+  ofVec2f v2p = v1.getRotated(45);
+  BOOST_CHECK_EQUAL(v2.x, v2p.x);
+  BOOST_CHECK_EQUAL(v2.y, v2p.y);
+
+  // rotate another 45 degrees -> show numerical artefacf
+  ofVec2f v3 = v2.getRotated(45);
+  ofVec2f v3p = v2.getRotated(45, p);
+  BOOST_CHECK_EQUAL(v3.x, v3p.x);
+  BOOST_CHECK_EQUAL(v3.y, v3p.y);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
