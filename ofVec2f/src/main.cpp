@@ -510,4 +510,42 @@ BOOST_AUTO_TEST_CASE(rotate_1)
   BOOST_CHECK_EQUAL(1.0f, v2.y);
 }
 
+BOOST_AUTO_TEST_CASE(rotateRad_0)
+{
+  // numerical imprecisions since float
+  // is used internally
+  ofVec2f v1(1, 0);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotateRad PI/2 (=90) degrees
+  ofVec2f v2 = v1.rotateRad(PI/2);
+  BOOST_CHECK_EQUAL(-4.37113883e-08f, v1.x);
+  BOOST_CHECK_EQUAL(1.0f, v1.y);
+  BOOST_CHECK_EQUAL(-4.37113883e-08f, v2.x);
+  BOOST_CHECK_EQUAL(1.0f, v2.y);
+
+  // rotateRad PI/4 (=45) degrees
+  ofVec2f v3 = v1.rotateRad(PI/4);
+  BOOST_CHECK_EQUAL(-0.707106829f, v3.x);
+  BOOST_CHECK_EQUAL(0.707106709f, v3.y);
+}
+
+BOOST_AUTO_TEST_CASE(rotateRad_1)
+{
+  // numerical imprecisions since float
+  // is used internally
+  ofVec2f v1(1, 0);
+  ofVec2f p(0, 1);
+  BOOST_CHECK_EQUAL(1.0f, v1.x);
+  BOOST_CHECK_EQUAL(0.0f, v1.y);
+
+  // rotateRad PI/4 (=45) degrees, but non-center pivot
+  ofVec2f v2 = v1.rotateRad(PI/4, p);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f), v1.x);
+  BOOST_CHECK_EQUAL(1.0f, v1.y);
+  BOOST_CHECK_EQUAL(sqrtf(2.0f), v2.x);
+  BOOST_CHECK_EQUAL(1.0f, v2.y);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
